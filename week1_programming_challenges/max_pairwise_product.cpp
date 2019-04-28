@@ -1,29 +1,46 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <string>
+using namespace std;
 
-int MaxPairwiseProduct(const std::vector<int>& numbers) {
-    int max_product = 0;
-    int n = numbers.size();
+class Solution
+{
+public:
+	long MaxProduct(vector<int> &nums)
+	{
+		long first = 0, second = 0;
+		for (int i = 0; i < nums.size(); i++)
+		{
+			if (nums[i] > first)
+			{
+				second = first;
+				first = nums[i];
+			}
+			else if (nums[i] > second)
+			{
+				second = nums[i];
+			}
+		}
+		return first*second;
+	}
+};
 
-    for (int first = 0; first < n; ++first) {
-        for (int second = first + 1; second < n; ++second) {
-            max_product = std::max(max_product,
-                numbers[first] * numbers[second]);
-        }
-    }
 
-    return max_product;
-}
+
 
 int main() {
-    int n;
-    std::cin >> n;
-    std::vector<int> numbers(n);
-    for (int i = 0; i < n; ++i) {
-        std::cin >> numbers[i];
-    }
+	vector<int> vec;
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		int x;
+		cin >> x;
+		vec.push_back(x);
+	}
 
-    std::cout << MaxPairwiseProduct(numbers); << "\n";
-    return 0;
+	Solution s;
+	cout << s.MaxProduct(vec) << endl;
+	
+	return 0;
 }
